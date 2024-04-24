@@ -18,17 +18,6 @@ export function generateStaticParams() {
 
 
 
-const getProducts = async(category) => {
- try {
-  const resp = await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/productos/${category}`,{
-    cache: "no-store"
-  });
-  const data = await resp.json();
-  return data
- } catch (error) {
-  console.log(error,"ha ocurrido un error")
- }
-};
 
 export default async function ProductosPage({params}) {
   const {categoria}=params
