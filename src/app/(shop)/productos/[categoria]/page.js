@@ -60,9 +60,9 @@ export default async function ProductosPage({params}) {
       <MenuCategorias />
 
               <Suspense fallback={<div>Loading...</div>}>
-              {
-                  products ? <ProductList products={products} /> : <div className="flex justify-center"><h2>Buscando productos</h2></div> 
-                }
+              
+                  <ProductList products={products} />  
+                
                  
               </Suspense>
       
