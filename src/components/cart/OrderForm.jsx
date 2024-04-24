@@ -92,6 +92,7 @@ const onSubmit=async(e)=>{
             placeholder="Dirección de envío"
             className="input input-bordered input-primary w-full "
             name="direccion"
+            value={values.direccion}
             required
             onChange={onChange}
           />
@@ -101,6 +102,7 @@ const onSubmit=async(e)=>{
             placeholder="Telefono de contacto"
             className="input input-bordered input-primary w-full md:w-1/2 mt-2 "
             name="telefono"
+            value={values.telefono}
             required
             onChange={onChange}
           />
@@ -116,6 +118,7 @@ const onSubmit=async(e)=>{
               placeholder={user.email}
               className="input input-bordered w-full "
               disabled
+              values={values.email}
             />
           </div>
 
