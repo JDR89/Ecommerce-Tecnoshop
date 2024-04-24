@@ -5,20 +5,12 @@ import { AdminNav } from "@/components/ui/AdminNav";
 import Link from "next/link";
 
 export default async function DashBoardPage() {
-  const getProducts = async () => {
-   try {
-    const resp = await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/productos/todo`, {
-      cache: "no-store",
-    });
-    const data = await resp.json();
-    return data;
-   } catch (error) {
-    console.log(error, "ha ocurrido un error");
-   }
-  };
-
-  const products = await getProducts();
-
+ try{
+  const resp = await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/productos/todo`, {
+    cache: "no-store",
+  });
+  const products = await resp.json();
+  
   return (
     <>
       <h1 className="text-3xl mt-2 flex justify-center">Panel de administración</h1>
@@ -39,4 +31,15 @@ export default async function DashBoardPage() {
       <Footer />
     </>
   );
+ }catch(err){
+  console.log(err)
+  return(
+    
+    <h1 className="text-3xl mt-2 flex justify-center">Error de carga de productos</h1>
+  )
+ }
+
+  
+
+ 
 }
