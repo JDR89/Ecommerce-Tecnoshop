@@ -1,4 +1,4 @@
-import { collection, getDocs } from "firebase/firestore";
+import { deleteDoc,collection, getDocs } from "firebase/firestore";
 import { db } from "../../../firebase/config";
 
 import { BtnDeleteOrder } from "./BtnDeleteOrder";
@@ -8,6 +8,25 @@ export const OrdersTable = async () => {
     const ordersRef = collection(db, "ordenes");
     const querySnapshot = await getDocs(ordersRef);
     const orders = querySnapshot.docs.map((doc) => ({ ...doc.data() }));
+
+    const deleteOrder = async (buyID) => {
+      "use server"
+      try {
+        const ordersRef = collection(db, "ordenes");
+        const querySnapshot = await getDocs(ordersRef);
+    
+        querySnapshot.forEach((doc) => {
+          const data = doc.data();
+          if (data.buyID === buyID) {
+            deleteDoc(doc.ref);
+            console.log("Documento eliminado:", doc.id);
+          }
+        });
+      } catch (error) {
+        console.error("Error al eliminar el documento:", error);
+      }
+  
+    };
 
     return (
       <div className="overflow-x-auto">
@@ -56,7 +75,7 @@ export const OrdersTable = async () => {
                 <td className="flex ">
                   <input type="checkbox" className="checkbox checkbox-lg mx-5" />
   
-                  <BtnDeleteOrder  buyID={e.buyID} />
+                  <BtnDeleteOrder deleteOrder={deleteOrder} buyID={e.buyID} />
                 </td>
               </tr>
             ))}

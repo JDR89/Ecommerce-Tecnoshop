@@ -1,27 +1,11 @@
 "use client"
-import { collection, deleteDoc, doc, getDocs, where } from "firebase/firestore";
+
 import { FaRegTrashAlt } from "react-icons/fa";
-import { db } from "../../../firebase/config";
 
-export const BtnDeleteOrder = ({ buyID }) => {
 
-  const deleteOrder = async (buyID) => {
-    try {
-      const ordersRef = collection(db, "ordenes");
-      const querySnapshot = await getDocs(ordersRef);
-  
-      querySnapshot.forEach((doc) => {
-        const data = doc.data();
-        if (data.buyID === buyID) {
-          deleteDoc(doc.ref);
-          console.log("Documento eliminado:", doc.id);
-        }
-      });
-    } catch (error) {
-      console.error("Error al eliminar el documento:", error);
-    }
+export const BtnDeleteOrder = ({ buyID,deleteOrder }) => {
 
-  };
+ 
   return (
     <button onClick={() => deleteOrder(buyID)}>
       <FaRegTrashAlt size={20} />
