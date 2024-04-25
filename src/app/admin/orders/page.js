@@ -9,7 +9,7 @@ export default async function OrdersPage() {
   try {
     const ordersRef = collection(db, "ordenes");
     const querySnapshot = await getDocs(ordersRef);
-    const orders = querySnapshot.docs.map((doc) => ({ ...doc.data() }));
+    const orders =  querySnapshot.docs.map((doc) => ({ ...doc.data() }));
 
     const deleteOrder = async (buyID) => {
       "use server";
@@ -28,7 +28,7 @@ export default async function OrdersPage() {
         console.error("Error al eliminar el documento:", error);
       }
     };
-
+    
     return (
       <>
         <h1 className="text-3xl mt-2 flex justify-center">Ordenes</h1>
@@ -52,7 +52,7 @@ export default async function OrdersPage() {
             </thead>
             <tbody>
               {/* row */}
-              {orders?.map((e) => (
+              {orders.map((e) => (
                 <tr key={e.fecha}>
                   <td>{e.cliente.email}</td>
                   <td>{e.fecha}</td>

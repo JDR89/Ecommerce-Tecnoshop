@@ -4,24 +4,7 @@ import { db } from "../../../firebase/config";
 import { BtnDeleteOrder } from "./BtnDeleteOrder";
 
 
-const deleteOrder = async (buyID) => {
-  "use server"
-  try {
-    const ordersRef = collection(db, "ordenes");
-    const querySnapshot = await getDocs(ordersRef);
 
-    querySnapshot.forEach((doc) => {
-      const data = doc.data();
-      if (data.buyID === buyID) {
-        deleteDoc(doc.ref);
-        console.log("Documento eliminado:", doc.id);
-      }
-    });
-  } catch (error) {
-    console.error("Error al eliminar el documento:", error);
-  }
-
-};
 export const OrdersTable = async () => {
   try{
     const ordersRef = collection(db, "ordenes");
@@ -29,7 +12,24 @@ export const OrdersTable = async () => {
     const data = querySnapshot.docs.map((doc) => ({ ...doc.data() }));
     const orders = data
 
+    const deleteOrder = async (buyID) => {
+      "use server"
+      try {
+        const ordersRef = collection(db, "ordenes");
+        const querySnapshot = await getDocs(ordersRef);
     
+        querySnapshot.forEach((doc) => {
+          const data = doc.data();
+          if (data.buyID === buyID) {
+            deleteDoc(doc.ref);
+            console.log("Documento eliminado:", doc.id);
+          }
+        });
+      } catch (error) {
+        console.error("Error al eliminar el documento:", error);
+      }
+    
+    };
 
     return (
       <div className="overflow-x-auto">
