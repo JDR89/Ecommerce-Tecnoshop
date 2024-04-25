@@ -1,10 +1,10 @@
-
+"use client"
 
 import { BtnDeleteOrder } from "./BtnDeleteOrder";
 
 
 
-export const OrdersTable =  ({orders,deleteOrder}) => {
+export const OrdersTable =  ({orders}) => {
 
   return(
     <tbody>
@@ -50,7 +50,7 @@ export const OrdersTable =  ({orders,deleteOrder}) => {
                       className="checkbox checkbox-lg mx-5"
                     />
 
-                    <BtnDeleteOrder deleteOrder={deleteOrder} buyID={e.buyID} />
+                    <BtnDeleteOrder  buyID={e.buyID} />
                   </td>
                 </tr>
               ))}

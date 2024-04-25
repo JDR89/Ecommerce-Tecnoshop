@@ -12,23 +12,23 @@ export default async function OrdersPage() {
       cache: "no-store",
     })
     const orders = await resp.json()
-    const deleteOrder = async (buyID) => {
-      "use server";
-      try {
-        const ordersRef = collection(db, "ordenes");
-        const querySnapshot = await getDocs(ordersRef);
+    // const deleteOrder = async (buyID) => {
+    //   "use server";
+    //   try {
+    //     const ordersRef = collection(db, "ordenes");
+    //     const querySnapshot = await getDocs(ordersRef);
 
-        querySnapshot.forEach((doc) => {
-          const data = doc.data();
-          if (data.buyID === buyID) {
-            deleteDoc(doc.ref);
-            console.log("Documento eliminado:", doc.id);
-          }
-        });
-      } catch (error) {
-        console.error("Error al eliminar el documento:", error);
-      }
-    };
+    //     querySnapshot.forEach((doc) => {
+    //       const data = doc.data();
+    //       if (data.buyID === buyID) {
+    //         deleteDoc(doc.ref);
+    //         console.log("Documento eliminado:", doc.id);
+    //       }
+    //     });
+    //   } catch (error) {
+    //     console.error("Error al eliminar el documento:", error);
+    //   }
+    // };
     
     return (
       <>
@@ -51,7 +51,7 @@ export default async function OrdersPage() {
                 <th>Acciones</th>
               </tr>
             </thead>
-            <OrdersTable orders={orders} deleteOrder={deleteOrder} />
+            <OrdersTable orders={orders}  />
           </table>
         </div>
       </>
