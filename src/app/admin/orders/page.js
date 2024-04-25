@@ -1,16 +1,17 @@
-import { OrdersTable } from "@/components/admin/OrdersTable";
+
 import { AdminNav } from "@/components/ui/AdminNav";
 import { deleteDoc, collection, getDocs } from "firebase/firestore";
 
 import { db } from "../../../../firebase/config";
-import { BtnDeleteOrder } from "@/components/admin/BtnDeleteOrder";
+
+import { OrdersTable } from "@/components/admin/OrdersTable";
 
 export default async function OrdersPage() {
   try {
-    const ordersRef = collection(db, "ordenes");
-    const querySnapshot = await getDocs(ordersRef);
-    const orders =  querySnapshot.docs.map((doc) => (doc.data()));
-
+    const resp = await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/ordenes`, {
+      cache: "no-store",
+    })
+    const orders = await resp.json()
     const deleteOrder = async (buyID) => {
       "use server";
       try {
@@ -50,53 +51,7 @@ export default async function OrdersPage() {
                 <th>Acciones</th>
               </tr>
             </thead>
-            <tbody>
-              {/* row */}
-              {orders.map((e) => (
-                <tr key={e.fecha}>
-                  <td>{e.cliente.email}</td>
-                  <td>{e.fecha}</td>
-                  <td>
-                    {e.productos.map((e) => (
-                      <div
-                        key={e.titulo}
-                        className="flex justify-center flex-col"
-                      >
-                        <span key={e.fecha}>{e.titulo}</span>
-                      </div>
-                    ))}
-                  </td>
-
-                  <td>
-                    {e.productos.map((e) => (
-                      <div
-                        key={e.titulo}
-                        className="flex justify-center flex-col"
-                      >
-                        <span key={e.fecha}>{e.qty}</span>
-                      </div>
-                    ))}
-                  </td>
-
-                  <td>
-                    {e.productos.reduce((acc, item) => acc + item.total, 0)}
-                  </td>
-
-                  <td>{e.cliente.direccion}</td>
-
-                  <td>{e.cliente?.telefono}</td>
-
-                  <td className="flex ">
-                    <input
-                      type="checkbox"
-                      className="checkbox checkbox-lg mx-5"
-                    />
-
-                    <BtnDeleteOrder deleteOrder={deleteOrder} buyID={e.buyID} />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
+            <OrdersTable orders={orders} deleteOrder={deleteOrder} />
           </table>
         </div>
       </>
