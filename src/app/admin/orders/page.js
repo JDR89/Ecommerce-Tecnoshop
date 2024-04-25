@@ -8,14 +8,11 @@ import { OrdersTable } from "@/components/admin/OrdersTable";
 
 export default async function OrdersPage() {
   try {
-    const getOrders = async () => {
-      const ordersRef = collection(db, "ordenes");
-      const querySnapshot = await getDocs(ordersRef);
-      const docs = querySnapshot.docs.map((doc) => ({ ...doc.data() }));
-      return docs;
-    };
+    const resp = await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/ordenes`, {
+      next: { revalidate: 0 },
+    })
+    const orders = await resp.json()
     
-    const orders = await getOrders();
     
     return (
       <>
