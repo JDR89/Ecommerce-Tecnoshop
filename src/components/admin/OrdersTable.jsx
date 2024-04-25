@@ -1,11 +1,11 @@
-"use client"
+
 
 import { BtnDeleteOrder } from "./BtnDeleteOrder";
 
 
 
-export const OrdersTable =  ({orders}) => {
-
+export const  OrdersTable = async ({orders}) => {
+  
   return(
     <tbody>
     
@@ -50,7 +50,7 @@ export const OrdersTable =  ({orders}) => {
                       className="checkbox checkbox-lg mx-5"
                     />
 
-                    <BtnDeleteOrder  buyID={e.buyID} />
+                    <BtnDeleteOrder orders={orders}  buyID={e.buyID} />
                   </td>
                 </tr>
               ))}
