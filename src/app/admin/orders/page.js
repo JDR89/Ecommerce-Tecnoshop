@@ -9,7 +9,7 @@ export default async function OrdersPage() {
   try {
     const ordersRef = collection(db, "ordenes");
     const querySnapshot = await getDocs(ordersRef);
-    const orders =  querySnapshot.docs.map((doc) => ({ ...doc.data() }));
+    const orders =  querySnapshot.docs.map((doc) => (doc.data()));
 
     const deleteOrder = async (buyID) => {
       "use server";
